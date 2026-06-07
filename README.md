@@ -55,4 +55,6 @@ Measuring melodic entropy from MIDI data against commercial success labels acros
 
 ---
 
+![Visitor Count](https://komarev.com/ghpvc/?username=tanistheta&color=grey&style=flat&label=visitors)
+
 <sub>MUJ · Computer Science (Data Science) · Batch 2028</sub>
