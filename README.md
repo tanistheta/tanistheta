@@ -2,14 +2,14 @@
 
 > CS student finding hidden structure in things that look random.
 
-I study how information behaves — in code, in commits, in music, in systems that seem chaotic until they aren't. Currently at MUJ (Batch '27), building things that sit at the intersection of data science and the kind of questions that don't have obvious answers yet.
+I study how information behaves - in code, in commits, in music, in systems that seem chaotic until they aren't. Currently at MUJ (Batch '28), building things that sit at the intersection of data science and the kind of questions that don't have obvious answers yet.
 
 ---
 
 ## work that matters
 
 ### [Entropic Fingerprint](https://github.com/tanistheta/entropic-fingerprint)
-Shannon entropy analysis of Git commit histories to detect software release events — without access to tags, changelogs, or any explicit signals. Trained on Flask, Django, and CPython; generalizes cross-repo. **72% accuracy on irregular release cycles**, statistically significant result. Expanding to 9 repositories (2018–2024) toward a potential MSR conference submission.
+Shannon entropy analysis of Git commit histories to detect software release events - without access to tags, changelogs, or any explicit signals. Trained on Flask, Django, and CPython; generalizes cross-repo. **72% accuracy on irregular release cycles**, statistically significant result. Expanding to 9 repositories (2018–2024).
 
 > *The intuition: releases aren't random. They compress entropy.*
 
@@ -23,7 +23,7 @@ Measuring melodic entropy from MIDI data against commercial success labels acros
 
 ## currently
 
-- Expanding Entropic Fingerprint: 3 → 9 repos, deeper statistical analysis, MSR paper direction
+- Expanding Entropic Fingerprint: 3 → 9 repos, deeper statistical analysis
 - DSA on Neetcode 150 in C++
 - Exploring pitch entropy in music as a second entropy-based research thread
 
@@ -51,8 +51,8 @@ Measuring melodic entropy from MIDI data against commercial success labels acros
 
 ## find me
 
-[portfolio](https://tanistheta.dev) · [linkedin](https://linkedin.com/in/tanistheta) · tanistheta@gmail.com
+[portfolio](https://tanishkgangwar.vercel.app/) · [linkedin](https://www.linkedin.com/in/tanishk-gangwar-809614363/) · tanishk7531@gmail.com
 
 ---
 
-<sub>MUJ · Computer Science (Data Science) · Batch 2027</sub>
+<sub>MUJ · Computer Science (Data Science) · Batch 2028</sub>
