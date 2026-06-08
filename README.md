@@ -8,7 +8,7 @@ I study how information behaves - in code, in commits, in music, in systems that
 
 ## work that matters
 
-### [Entropic Fingerprint](https://github.com/tanistheta/entropic-fingerprint)
+### [Entropic Fingerprint](https://github.com/tanistheta/enthropic-fingerprint)
 Shannon entropy analysis of Git commit histories to detect software release events - without access to tags, changelogs, or any explicit signals. Trained on Flask, Django, and CPython; generalizes cross-repo. **72% accuracy on irregular release cycles**, statistically significant result. Expanding to 9 repositories (2018–2024).
 
 > *The intuition: releases aren't random. They compress entropy.*
