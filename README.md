@@ -9,9 +9,17 @@ I study how information behaves - in code, in commits, in music, in systems that
 ## work that matters
 
 ### [Entropic Fingerprint](https://github.com/tanistheta/enthropic-fingerprint)
-Shannon entropy analysis of Git commit histories to detect software release events - without access to tags, changelogs, or any explicit signals. Trained on Flask, Django, and CPython; generalizes cross-repo. **72% accuracy on irregular release cycles**, statistically significant result. Expanding to 9 repositories (2018–2024).
 
-> *The intuition: releases aren't random. They compress entropy.*
+Shannon entropy analysis of Git commit histories — tested across 9 repositories
+and 400k+ commits (2018–2024). The hypothesis: release preparation creates
+measurable entropy spikes. **It doesn't generalize.** Cross-repo validation
+(leave-one-out) yields mean AUC 0.47, indistinguishable from chance.
+
+What the data *does* reveal: commit volume is the dominant structural driver of
+entropy (Spearman r = 0.817, p = 0.007), a confound that smaller studies miss.
+Null results, when tested rigorously, are results.
+
+> *The intuition was reasonable. The signal wasn't there.*
 
 ### [DevInsights](https://github.com/tanistheta/devinsights) *(in progress)*
 FastAPI + React pipeline for developer activity analytics. Real metrics, real deployment.
@@ -23,7 +31,7 @@ Measuring melodic entropy from MIDI data against commercial success labels acros
 
 ## currently
 
-- Expanding Entropic Fingerprint: 3 → 9 repos, deeper statistical analysis
+- Entropic Fingerprint: complete (9 repos, 400k+ commits, null result published)
 - DSA on Neetcode 150 in C++
 - Exploring pitch entropy in music as a second entropy-based research thread
 
