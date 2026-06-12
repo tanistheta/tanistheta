@@ -1,45 +1,65 @@
-# tanistheta
+<div align="center">
 
-> CS student finding hidden structure in things that look random.
+```
+finding structure in things that look random
+```
 
-I study how information behaves - in code, in commits, in music, in systems that seem chaotic until they aren't. Currently at MUJ (Batch '28), building things that sit at the intersection of data science and the kind of questions that don't have obvious answers yet.
+**Tanishk Gangwar** · MUJ CSE (Data Science) · Batch '28
+
+[![Portfolio](https://img.shields.io/badge/portfolio-tanishkgangwar.vercel.app-black?style=flat-square)](https://tanishkgangwar.vercel.app/)
+[![LinkedIn](https://img.shields.io/badge/linkedin-connect-0A66C2?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/tanishk-gangwar-809614363/)
+[![Email](https://img.shields.io/badge/email-tanishk7531@gmail.com-EA4335?style=flat-square&logo=gmail)](mailto:tanishk7531@gmail.com)
+
+</div>
 
 ---
 
-## work that matters
+I study how information behaves - in code, in commits, in systems that look chaotic until they aren't.
+Most of my work starts with a clean hypothesis and ends with the data winning. That's fine. Rigorous negatives are underrated.
+
+---
+
+## research
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+### [Sekivara](https://github.com/tanistheta/sekivara)
+`diff-in-diff` `quasi-experimental` `git`
+
+Does GitHub Copilot leave a behavioral fingerprint in how people commit?
+
+**Yes.** Across ~403k commits from 9 repositories, treated repos shifted toward smaller, more atomic commits after Copilot adoption. The effect is driven by **existing contributors** — not newcomers. The tool changes how people who already work commit.
+
+</td>
+<td width="50%" valign="top">
 
 ### [Entropic Fingerprint](https://github.com/tanistheta/enthropic-fingerprint)
+`shannon entropy` `AUC 0.47` `null result`
 
-Shannon entropy analysis of Git commit histories — tested across 9 repositories
-and 400k+ commits (2018–2024). The hypothesis: release preparation creates
-measurable entropy spikes. **It doesn't generalize.** Cross-repo validation
-(leave-one-out) yields mean AUC 0.47, indistinguishable from chance.
+Does release preparation create detectable entropy spikes in Git histories?
 
-What the data *does* reveal: commit volume is the dominant structural driver of
-entropy (Spearman r = 0.817, p = 0.007), a confound that smaller studies miss.
-Null results, when tested rigorously, are results.
+**No.** Leave-one-out cross-validation across 9 repos and 400k+ commits yields AUC 0.47 — chance. What the data *does* reveal: commit volume (not entropy) is the dominant structural signal (Spearman r = 0.817, p = 0.007). A confound most smaller studies miss.
 
-> *The intuition was reasonable. The signal wasn't there.*
+</td>
+</tr>
+</table>
 
-### [DevInsights](https://github.com/tanistheta/devinsights) *(in progress)*
-FastAPI + React pipeline for developer activity analytics. Real metrics, real deployment.
-
-### Pitch Entropy & Commercial Success *(research, early stage)*
-Measuring melodic entropy from MIDI data against commercial success labels across decades. Using the Lakh MIDI dataset. Same core question as Entropic Fingerprint — does structure predict outcome?
-
----
-
-## currently
-
-- Entropic Fingerprint: complete (9 repos, 400k+ commits, null result published)
-- DSA on Neetcode 150 in C++
-- Exploring pitch entropy in music as a second entropy-based research thread
+> Both published. Both honest.
 
 ---
 
 ## stack
 
-`Python` `C++` `scikit-learn` `FastAPI` `React` `Git` `Pandas` `NumPy`
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
+![C++](https://img.shields.io/badge/C++-00599C?style=flat-square&logo=cplusplus&logoColor=white)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=flat-square&logo=scikit-learn&logoColor=white)
+![Pandas](https://img.shields.io/badge/Pandas-150458?style=flat-square&logo=pandas&logoColor=white)
+![NumPy](https://img.shields.io/badge/NumPy-013243?style=flat-square&logo=numpy&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB)
+![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white)
 
 ---
 
@@ -48,21 +68,13 @@ Measuring melodic entropy from MIDI data against commercial success labels acros
 <div align="center">
 
 ![GitHub Stats](https://github-readme-stats.vercel.app/api?username=tanistheta&show_icons=true&theme=nord&hide_border=true&bg_color=00000000)
-
 [![GitHub Streak](https://streak-stats.demolab.com?user=tanistheta&theme=nord&hide_border=true&background=00000000)](https://git.io/streak-stats)
-
 ![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=tanistheta&layout=compact&theme=nord&hide_border=true&bg_color=00000000)
 
 </div>
 
 ---
 
-## find me
-
-[portfolio](https://tanishkgangwar.vercel.app/) · [linkedin](https://www.linkedin.com/in/tanishk-gangwar-809614363/) · tanishk7531@gmail.com
-
----
-
-![Visitor Count](https://komarev.com/ghpvc/?username=tanistheta&color=grey&style=flat&label=visitors)
-
-<sub>MUJ · Computer Science (Data Science) · Batch 2028</sub>
+<div align="center">
+<sub>CGPA 9.00 · Manipal University Jaipur · tanishk7531@gmail.com</sub>
+</div>
