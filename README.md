@@ -1,5 +1,7 @@
 <div align="center">
 
+[![Portfolio](assets/portfolio.png)](https://tanishkgangwar.vercel.app/)
+
 ```
 finding structure in things that look random
 ```
@@ -14,7 +16,7 @@ finding structure in things that look random
 
 ---
 
-I study how information behaves - in code, in commits, in systems that look chaotic until they aren't.
+I study how information behaves — in code, in commits, in systems that look chaotic until they aren't.
 Most of my work starts with a clean hypothesis and ends with the data winning. That's fine. Rigorous negatives are underrated.
 
 ---
@@ -30,7 +32,9 @@ Most of my work starts with a clean hypothesis and ends with the data winning. T
 
 Does GitHub Copilot leave a behavioral fingerprint in how people commit?
 
-**Yes.** Across ~403k commits from 9 repositories, treated repos shifted toward smaller, more atomic commits after Copilot adoption. The effect is driven by **existing contributors** — not newcomers. The tool changes how people who already work commit.
+**Yes.** Across ~403k commits from 9 repositories, treated repos shifted toward smaller, more atomic commits after Copilot adoption. The effect is driven by **existing contributors** — not newcomers.
+
+![Sekivara Event Study](assets/sekivara-event-study.png)
 
 </td>
 <td width="50%" valign="top">
@@ -40,7 +44,9 @@ Does GitHub Copilot leave a behavioral fingerprint in how people commit?
 
 Does release preparation create detectable entropy spikes in Git histories?
 
-**No.** Leave-one-out cross-validation across 9 repos and 400k+ commits yields AUC 0.47 — chance. What the data *does* reveal: commit volume (not entropy) is the dominant structural signal (Spearman r = 0.817, p = 0.007). A confound most smaller studies miss.
+**No.** Leave-one-out validation across 9 repos yields AUC 0.47 — chance. What the data *does* reveal: commit volume is the dominant structural signal (Spearman r = 0.817, p = 0.007).
+
+![Entropy vs Volume](assets/entropy-volume.png)
 
 </td>
 </tr>
