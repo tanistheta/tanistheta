@@ -1,10 +1,15 @@
 <div align="center">
+
 [![Portfolio](assets/portfolio.png)](https://tanishkgangwar.vercel.app/)
-finding structure in things that look random
+
+*finding structure in things that look random*
+
 **Tanishk Gangwar** · MUJ CSE (Data Science) · Batch '28
+
 [![Portfolio](https://img.shields.io/badge/portfolio-tanishkgangwar.vercel.app-black?style=flat-square)](https://tanishkgangwar.vercel.app/)
 [![LinkedIn](https://img.shields.io/badge/linkedin-connect-0A66C2?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/tanishk-gangwar-809614363/)
 [![Email](https://img.shields.io/badge/email-tanishk7531@gmail.com-EA4335?style=flat-square&logo=gmail)](mailto:tanishk7531@gmail.com)
+
 </div>
 
 ---
@@ -63,6 +68,7 @@ A 25-round image comparison quiz that maps your aesthetic sensibility into vecto
 ---
 
 ## stack
+
 ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
 ![C++](https://img.shields.io/badge/C++-00599C?style=flat-square&logo=cplusplus&logoColor=white)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=flat-square&logo=scikit-learn&logoColor=white)
