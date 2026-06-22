@@ -2,9 +2,12 @@
 
 [![Portfolio](assets/portfolio.png)](https://tanishkgangwar.vercel.app/)
 
-*finding structure in things that look random*
+</div>
 
-**Tanishk Gangwar** · MUJ CSE (Data Science) · Batch '28
+<div align="center">
+
+**Tanishk Gangwar**
+B.Tech CSE (Data Science) · Manipal University Jaipur · Batch '28
 
 [![Portfolio](https://img.shields.io/badge/portfolio-tanishkgangwar.vercel.app-black?style=flat-square)](https://tanishkgangwar.vercel.app/)
 [![LinkedIn](https://img.shields.io/badge/linkedin-connect-0A66C2?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/tanishk-gangwar-809614363/)
@@ -14,56 +17,55 @@
 
 ---
 
-I study how information behaves — in code, in commits, in systems that look chaotic until they aren't.
-Most of my work starts with a clean hypothesis and ends with the data winning. That's fine. Rigorous negatives are underrated.
+I study how information behaves in code — in commits, in adoption curves, in systems that look chaotic until you measure them properly. Most of what's below started as a clean hypothesis. Some of it ended with the data winning instead of me. I think that's the more interesting outcome to publish.
 
 ---
 
 ## research
 
-<table>
-<tr>
-<td width="50%" valign="top">
-
 ### [Sekivara](https://github.com/tanistheta/sekivara)
-`diff-in-diff` `quasi-experimental` `git`
+`difference-in-differences` `quasi-experimental` `git mining` `403k commits`
 
-Does GitHub Copilot leave a behavioral fingerprint in how people commit?
+**Does GitHub Copilot change how people commit — causally, not just correlationally?**
 
-**Yes.** Across ~403k commits from 9 repositories, treated repos shifted toward smaller, more atomic commits after Copilot adoption. The effect is driven by **existing contributors** — not newcomers.
+A difference-in-differences study across **403,646 commits from 9 repositories** (2018–2024), comparing Copilot-adopting repos against a control group before and after GA. HC3 robust standard errors, pre-trend validation, an event study, a dose-response check, and author-cohort decomposition — built to survive the obvious confounds, not just produce a headline number.
 
-![Sekivara Event Study](assets/sekivara-event-study.png)
+**Result:** Copilot adoption causally reduced mean files-per-commit by **28%**, insertions-per-commit by **37%**, and large-commit fraction by **2.4pp** (all p < 0.01). The effect concentrates in existing contributors, not newcomers — people write smaller, more atomic commits once an assistant is doing the typing.
 
-</td>
-<td width="50%" valign="top">
+A complete IEEEtran paper is drafted, targeting MSR 2027.
+
+---
 
 ### [Entropic Fingerprint](https://github.com/tanistheta/enthropic-fingerprint)
-`shannon entropy` `AUC 0.47` `null result`
+`shannon entropy` `leave-one-repo-out CV` `honest null result`
 
-Does release preparation create detectable entropy spikes in Git histories?
+**Does Shannon entropy in commit histories predict upcoming software releases?**
 
-**No.** Leave-one-out validation across 9 repos yields AUC 0.47 — chance. What the data *does* reveal: commit volume is the dominant structural signal (Spearman r = 0.817, p = 0.007).
+The hypothesis was clean: release prep should look different from normal development at the information-theoretic level. It didn't hold up.
 
-![Entropy vs Volume](assets/entropy-volume.png)
+**Result:** AUC 0.47 under leave-one-repo-out cross-validation — indistinguishable from chance. What the data *does* show: commit volume, not entropy, is the dominant structural signal (Spearman r = 0.817, p = 0.007) — a confound that the entropy hypothesis was actually just re-detecting.
 
-</td>
-</tr>
-</table>
-
-> Both published. Both honest.
+Published as what it is: a negative result with a documented confound, not a quiet repo nobody talks about. The methodology is the part worth reading.
 
 ---
 
 ## builds
 
-### [Kansei 感性](https://github.com/tanistheta/kansei) · [kansei.up.railway.app](https://kansei.up.railway.app/)
-`clip` `fastapi` `umap` `aesthetic-ml`
+### [Kansei 感性](https://github.com/tanistheta/kansei) · [kansei.duckdns.org](https://kansei.duckdns.org/)
+`clip` `umap` `fastapi` `docker` `gcp`
 
-Can a machine read taste?
+**Can a machine read taste?**
 
-A 25-round image comparison quiz that maps your aesthetic sensibility into vector space using CLIP ViT-B/32 embeddings. Classifies preferences across 16 aesthetics — from wabi-sabi to cyberpunk — and returns a ranked profile with a 3D UMAP constellation, aesthetic DNA breakdown, and a shareable result card.
+A 25-round image-comparison quiz that encodes every choice as a CLIP ViT-B/32 embedding, scores it against 16 hand-curated aesthetic centroids by cosine similarity, and visualizes the result in a 3D UMAP projection alongside kNN nearest-image retrieval. You can also upload any photo and have it classified the same way.
 
-> Exponential recency weighting. kNN nearest-image retrieval. Rejection analysis. The math is real.
+The quiz logic was the easy part. The infrastructure wasn't:
+
+- Migrated off a paid host onto a **free-tier GCP VM by choice** — 964MB of RAM, two Dockerized services, on purpose, because the constraint is what makes the engineering real
+- Diagnosed and fixed three separate production failures with evidence, not guesses: a browser secure-context restriction silently breaking session tracking, a missing auth token, and a latent null-handling bug in the UMAP code path that only a working classify feature could expose
+- Found and worked around a **CPU-bursting ceiling** (GCP documents e2-micro at 25% sustained CPU) by measuring it directly rather than assuming it was a memory problem
+- Cut a Docker image from 9.2GB to 1.62GB by fixing a pip dependency-resolution bug, and cached an expensive UMAP fit to disk so it doesn't get recomputed on every restart
+
+Free HTTPS, a real domain, zero ongoing cost. The full writeup — every bug, every measurement, every tradeoff — is in the repo's README.
 
 ---
 
@@ -71,11 +73,13 @@ A 25-round image comparison quiz that maps your aesthetic sensibility into vecto
 
 ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
 ![C++](https://img.shields.io/badge/C++-00599C?style=flat-square&logo=cplusplus&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
+![GCP](https://img.shields.io/badge/Google%20Cloud-4285F4?style=flat-square&logo=googlecloud&logoColor=white)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=flat-square&logo=scikit-learn&logoColor=white)
+![statsmodels](https://img.shields.io/badge/statsmodels-8C564B?style=flat-square)
 ![Pandas](https://img.shields.io/badge/Pandas-150458?style=flat-square&logo=pandas&logoColor=white)
 ![NumPy](https://img.shields.io/badge/NumPy-013243?style=flat-square&logo=numpy&logoColor=white)
-![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white)
-![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB)
 ![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white)
 
 ---
@@ -85,7 +89,9 @@ A 25-round image comparison quiz that maps your aesthetic sensibility into vecto
 <div align="center">
 
 ![GitHub Stats](https://github-readme-stats.vercel.app/api?username=tanistheta&show_icons=true&theme=nord&hide_border=true&bg_color=00000000)
+
 [![GitHub Streak](https://streak-stats.demolab.com?user=tanistheta&theme=nord&hide_border=true&background=00000000)](https://git.io/streak-stats)
+
 ![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=tanistheta&layout=compact&theme=nord&hide_border=true&bg_color=00000000)
 
 </div>
@@ -93,5 +99,5 @@ A 25-round image comparison quiz that maps your aesthetic sensibility into vecto
 ---
 
 <div align="center">
-<sub>CGPA 9.00 · Manipal University Jaipur · tanishk7531@gmail.com</sub>
+<sub>CGPA 9.00/10 · Manipal University Jaipur · tanishk7531@gmail.com</sub>
 </div>
