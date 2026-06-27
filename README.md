@@ -49,6 +49,34 @@ Published as what it is: a negative result with a documented confound, not a qui
 
 ---
 
+### [Ikiru](https://github.com/tanistheta/ikiru)
+`staggered-adoption DiD` `sun-abraham estimator` `bigquery` `89 repos`
+
+**Does adding a CODEOWNERS file causally change how fast pull requests get reviewed?**
+
+A staggered-adoption difference-in-differences study (Sun-Abraham estimator) on an **89-repo panel** built from **~21TB of GH Archive data** pulled via Google BigQuery, with repository and calendar-time fixed effects and standard errors clustered at the repo level.
+
+**Result:** a clean null on PR closing time through roughly 18 months post-adoption — CODEOWNERS doesn't move review speed in the window most studies look at. Two coefficients turn significant at months 23–24, but that signal was diagnosed rather than reported at face value: with the panel's data cutoff, only 17 of 28 treated repos can even reach that horizon, and without a later-adopting comparison cohort at the same horizon, fixed effects can't separate genuine treatment effect from cohort maturation — so it's documented as confounded, not claimed as a finding.
+
+A follow-up coverage-heterogeneity check (parsing CODEOWNERS files at treatment-date commits across all 28 treated repos) surfaced a bimodal split — 14 repos at ≤10% file coverage, 8 at ≥90% — and the high-coverage subset alone shows a parallel-trends violation, pointing to coverage as a likely moderator the headline null result was masking.
+
+Mid-analysis, a directly competing paper (Lulla, Kula & Treude, 2025) was found and incorporated rather than ignored — Ikiru's 18–24 month window is a range their fixed RDD design structurally cannot observe at all. Includes a placebo test and a balance check on dropped low-activity controls; full pipeline (BigQuery pull → panel construction → event-study regression → robustness checks) is reproducible end to end.
+
+---
+
+## open source
+
+### [PyDriller](https://github.com/ishepard/pydriller) · 962★ · cited in ACM ESEC/FSE 2018
+`root-cause debugging` `test design` `unfamiliar codebases`
+
+Two merged pull requests and one investigated-but-unresolved bug report to a widely-used Python framework for mining software repositories.
+
+- **Fixed a confirmed data-correctness bug** ([#317](https://github.com/ishepard/pydriller/issues/317), merged) — `skip_whitespaces` was respected when reading per-file diffs but silently ignored when computing commit-level insertion/deletion counts, giving inconsistent numbers for the same commit depending on which API was called. Traced it to two git subprocess calls missing the relevant flag, fixed both, added a regression test using the project's existing fixtures.
+- **Designed and shipped a new public API** ([#226](https://github.com/ishepard/pydriller/issues/226), merged) — added `Commit.patch`, returning the full unified diff of a commit, closing a two-year-old feature request. Delegated to git directly rather than reconstructing patch-header format manually, then stress-tested against root, normal, and merge commits before merging.
+- **Investigated a harder bug and reported it instead of forcing a fix** ([#283](https://github.com/ishepard/pydriller/issues/283), open since 2023) — commit objects lose access to their stats after being collected into a list, due to a context-manager lifecycle issue. A fallback fix appeared to work locally, but testing against a remote cloned repo showed it only succeeded because of a Windows-specific quirk where deleted files' handles stay briefly readable — the same fix would likely fail unpredictably on Linux CI. Reported the finding with full reasoning rather than submitting a fix that couldn't be fully stood behind.
+
+---
+
 ## builds
 
 ### [Kansei 感性](https://github.com/tanistheta/kansei) · [kansei.duckdns.org](https://kansei.duckdns.org/)
