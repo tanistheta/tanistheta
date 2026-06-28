@@ -17,7 +17,7 @@ B.Tech CSE (Data Science) · Manipal University Jaipur · Batch '28
 
 ---
 
-I study how information behaves in code — in commits, in adoption curves, in systems that look chaotic until you measure them properly. Most of what's below started as a clean hypothesis. Some of it ended with the data winning instead of me. I think that's the more interesting outcome to publish.
+I study how information behaves in code - in commits, in adoption curves, in systems that look chaotic until you measure them properly. Most of what's below started as a clean hypothesis. Some of it ended with the data winning instead of me. I think that's the more interesting outcome to publish.
 
 ---
 
@@ -75,7 +75,7 @@ A 25-round image-comparison quiz that encodes every choice as a CLIP ViT-B/32 em
 
 The quiz logic was the easy part. The infrastructure wasn't:
 
-- Migrated off a paid host onto a **free-tier GCP VM by choice** — 964MB of RAM, two Dockerized services, on purpose, because the constraint is what makes the engineering real
+- Migrated off a paid host onto a **free-tier GCP VM by choice** - 964MB of RAM, two Dockerized services, on purpose, because the constraint is what makes the engineering real
 - Diagnosed and fixed three separate production failures with evidence, not guesses: a browser secure-context restriction silently breaking session tracking, a missing auth token, and a latent null-handling bug in the UMAP code path that only a working classify feature could expose
 - Found and worked around a **CPU-bursting ceiling** (GCP documents e2-micro at 25% sustained CPU) by measuring it directly rather than assuming it was a memory problem
 - Cut a Docker image from 9.2GB to 1.62GB by fixing a pip dependency-resolution bug, and cached an expensive UMAP fit to disk so it doesn't get recomputed on every restart
