@@ -80,7 +80,7 @@ The quiz logic was the easy part. The infrastructure wasn't:
 - Found and worked around a **CPU-bursting ceiling** (GCP documents e2-micro at 25% sustained CPU) by measuring it directly rather than assuming it was a memory problem
 - Cut a Docker image from 9.2GB to 1.62GB by fixing a pip dependency-resolution bug, and cached an expensive UMAP fit to disk so it doesn't get recomputed on every restart
 
-Free HTTPS, a real domain, zero ongoing cost. The full writeup — every bug, every measurement, every tradeoff — is in the repo's README.
+Free HTTPS, a real domain, zero ongoing cost. The full writeup — every bug, every measurement, every tradeoff - is in the repo's README.
 
 ---
 
