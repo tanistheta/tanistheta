@@ -28,11 +28,34 @@ I study how information behaves in code - in commits, in adoption curves, in sys
 
 **Does GitHub Copilot change how people commit - causally, not just correlationally?**
 
-A difference-in-differences study across **403,646 commits from 9 repositories** (2018–2024), comparing Copilot-adopting repos against a control group before and after GA. HC3 robust standard errors, pre-trend validation, an event study, a dose-response check, and author-cohort decomposition - built to survive the obvious confounds, not just produce a headline number.
+```mermaid
+flowchart LR
+    A[GH Archive<br/>9 repos, 2018-2024] --> B[Commit extraction<br/>403,646 commits]
+    B --> C[Feature engineering<br/>files / churn / inserts]
+    C --> D[Panel: repo x week<br/>fixed effects]
+    D --> E[Pre-trend F-test]
+    D --> F[DiD + event study]
+    D --> G[Dose-response &<br/>cohort decomposition]
+    E --> H[Result]
+    F --> H
+    G --> H
+```
 
-**Result:** Copilot adoption causally reduced mean files-per-commit by **28%**, insertions-per-commit by **37%**, and large-commit fraction by **2.4pp** (all p < 0.01). The effect concentrates in existing contributors, not newcomers - people write smaller, more atomic commits once an assistant is doing the typing.
+| Metric | Effect | p-value |
+|---|---|---|
+| Mean files/commit | −28% | < 0.01 |
+| Mean insertions/commit | −37% | < 0.01 |
+| Large-commit fraction | −2.4pp | < 0.01 |
+| Pre-trend joint F-test | passes on all 4 headline features | — |
 
-A complete IEEEtran paper is drafted, targeting MSR 2027.
+Effect concentrates in existing contributors, not newcomers - people write smaller, more atomic commits once an assistant is doing the typing. HC3 robust SEs throughout; IEEEtran paper drafted, targeting MSR 2027.
+
+<details>
+<summary><b>Relation to prior work</b> — Xu et al. 2025 (arXiv:2510.10165, Tilburg)</summary>
+
+Xu et al. find Copilot adoption increases **PR-level rework and review volume**. Sekivara looks one level down, at the commit itself, and finds atomicity *decreasing* post-adoption. Together: **more, smaller, more frequent commits** — Sekivara supplies the commit-level mechanism underneath their PR-level result.
+
+</details>
 
 ---
 
@@ -41,13 +64,29 @@ A complete IEEEtran paper is drafted, targeting MSR 2027.
 
 **Does adding a CODEOWNERS file causally change how fast pull requests get reviewed?**
 
-A staggered-adoption difference-in-differences study (Sun-Abraham estimator) on an **89-repo panel** built from **~21TB of GH Archive data** pulled via Google BigQuery, with repository and calendar-time fixed effects and standard errors clustered at the repo level.
+```mermaid
+flowchart LR
+    A[GH Archive<br/>~21TB via BigQuery] --> B[89-repo panel<br/>staggered adoption]
+    B --> C[Sun-Abraham<br/>event-study DiD]
+    C --> D{Result by<br/>horizon}
+    D -->|0-18mo| E[Null on<br/>PR closing time]
+    D -->|23-24mo| F[Signal —<br/>flagged as confounded]
+    B --> G[CODEOWNERS coverage<br/>parsed at treatment date]
+    G --> H[Bimodal split:<br/>14 repos ≤10% / 8 repos ≥90%]
+```
 
-**Result:** a clean null on PR closing time through roughly 18 months post-adoption - CODEOWNERS doesn't move review speed in the window most studies look at. Two coefficients turn significant at months 23–24, but that signal was diagnosed rather than reported at face value: with the panel's data cutoff, only 17 of 28 treated repos can even reach that horizon, and without a later-adopting comparison cohort at the same horizon, fixed effects can't separate genuine treatment effect from cohort maturation - so it's documented as confounded, not claimed as a finding.
+| Window | Finding | Confidence |
+|---|---|---|
+| 0–18 months | Null effect on PR closing time | Clean |
+| 23–24 months | Two coefficients turn significant | Confounded — only 17/28 repos reach this horizon, no later-adopting comparison cohort at same horizon |
+| Coverage split | 14 repos ≤10% coverage, 8 repos ≥90% | High-coverage subset shows parallel-trends violation → likely moderator |
 
-A follow-up coverage-heterogeneity check (parsing CODEOWNERS files at treatment-date commits across all 28 treated repos) surfaced a bimodal split - 14 repos at ≤10% file coverage, 8 at ≥90% - and the high-coverage subset alone shows a parallel-trends violation, pointing to coverage as a likely moderator the headline null result was masking.
+<details>
+<summary><b>Relation to prior work</b> — Lulla, Kula & Treude 2025</summary>
 
-Mid-analysis, a directly competing paper (Lulla, Kula & Treude, 2025) was found and incorporated rather than ignored - Ikiru's 18–24 month window is a range their fixed RDD design structurally cannot observe at all. Includes a placebo test and a balance check on dropped low-activity controls; full pipeline (BigQuery pull → panel construction → event-study regression → robustness checks) is reproducible end to end.
+A directly competing paper was found mid-analysis and incorporated rather than ignored. Their fixed RDD design structurally cannot observe the 18–24 month window Ikiru covers — the two studies are complementary in the horizons they can each speak to, not redundant.
+
+</details>
 
 ---
 
@@ -56,22 +95,52 @@ Mid-analysis, a directly competing paper (Lulla, Kula & Treude, 2025) was found 
 
 **Does Shannon entropy in commit histories predict upcoming software releases?**
 
-The hypothesis was clean: release prep should look different from normal development at the information-theoretic level. It didn't hold up.
+```mermaid
+flowchart LR
+    A[Commit histories<br/>9 repos] --> B[Shannon entropy<br/>per commit window]
+    B --> C[Naive train/test split]
+    C --> D[72% accuracy]
+    B --> E[Leave-one-repo-out CV]
+    E --> F[AUC 0.47 — chance]
+    B --> G[Confound check]
+    G --> H[Commit volume vs entropy<br/>Spearman r = 0.817]
+```
 
-**Result:** AUC 0.47 under leave-one-repo-out cross-validation - indistinguishable from chance. What the data *does* show: commit volume, not entropy, is the dominant structural signal (Spearman r = 0.817, p = 0.007) - a confound that the entropy hypothesis was actually just re-detecting.
+| Evaluation | Result | Interpretation |
+|---|---|---|
+| Naive split | 72% accuracy | Looked promising |
+| LORO-CV | AUC 0.47 | Indistinguishable from chance |
+| Confound test | Spearman r = 0.817, p = 0.007 | Entropy was re-detecting commit volume, not release prep |
 
-Published as what it is: a negative result with a documented confound, not a quiet repo nobody talks about. The methodology is the part worth reading.
+> **Status:** Published as a negative result with a documented confound, not a quiet repo nobody talks about. The methodology is the part worth reading.
 
 ---
 
 ### [Bias-Aware ML Pipeline](https://github.com/tanistheta/bias_awareness)
 `fairness-aware ml` `demographic parity` `equal opportunity` `random forest`
 
-**Does fixing bias in tabular ML actually cost you accuracy - and does every mitigation strategy work equally well?**
+**Does fixing bias in tabular ML cost accuracy - and do all mitigation strategies work equally well?**
 
-A 12-module, measurement-first pipeline that quantifies and mitigates attribute-level bias in tabular datasets, benchmarking three mitigation strategies - reweighting, feature suppression, and post-processing - across multiple fairness axes on a Random Forest classifier. Built in collaboration with Dr. Chirag Joshi; currently pending arXiv endorsement.
+```mermaid
+flowchart LR
+    A[Tabular dataset] --> B[Bias audit<br/>12 modules]
+    B --> C[Reweighting]
+    B --> D[Feature suppression]
+    B --> E[Post-processing]
+    C --> F[Fairness metrics]
+    D --> F
+    E --> F
+    F --> G[Random Forest<br/>accuracy check]
+```
 
-**Result:** 64.5% reduction in Demographic Parity Gap and 47.8% reduction in Equal Opportunity TPR Gap, with accuracy held stable. The sharper finding: naive feature suppression - the most intuitive fix - was the *least* effective strategy of the three, underperforming reweighting on every fairness axis tested.
+| Strategy | Demographic Parity Gap ↓ | Equal Opportunity TPR Gap ↓ | Accuracy |
+|---|---|---|---|
+| Reweighting | Best of 3 | Best of 3 | Stable |
+| Post-processing | Middle | Middle | Stable |
+| Feature suppression | Worst of 3 | Worst of 3 | Stable |
+| **Overall** | **64.5%** | **47.8%** | Held stable throughout |
+
+The sharper finding: naive feature suppression - the most intuitive fix - was the *least* effective of the three, underperforming reweighting on every fairness axis tested. Built with Dr. Chirag Joshi; pending arXiv endorsement.
 
 ---
 
@@ -92,16 +161,23 @@ Contributions to libraries with real production surface area — not toy patches
 
 **Can a machine read taste?**
 
-A 25-round image-comparison quiz that encodes every choice as a CLIP ViT-B/32 embedding, scores it against 16 hand-curated aesthetic centroids by cosine similarity, and visualizes the result in a 3D UMAP projection alongside kNN nearest-image retrieval. You can also upload any photo and have it classified the same way.
+```mermaid
+flowchart LR
+    A[25-round quiz<br/>image comparisons] --> B[CLIP ViT-B/32<br/>embeddings]
+    B --> C[Cosine similarity to<br/>16 aesthetic centroids]
+    B --> D[3D UMAP projection]
+    D --> E[kNN nearest-image<br/>retrieval]
+    A --> F[Upload & classify<br/>any photo]
+```
 
-The quiz logic was the easy part. The infrastructure wasn't:
+| Engineering problem | Root cause | Fix |
+|---|---|---|
+| Docker image bloat | pip dependency-resolution bug | 9.2GB → 1.62GB |
+| Session tracking silently broken | Browser secure-context restriction | Diagnosed via evidence, not guesswork |
+| Slow classify response | Assumed memory issue | Actually e2-micro's documented 25% sustained CPU ceiling — measured directly |
+| Repeated slow startup | UMAP re-fit on every restart | Cached fit to disk |
 
-- Migrated off a paid host onto a **free-tier GCP VM by choice** - 964MB of RAM, two Dockerized services, on purpose, because the constraint is what makes the engineering real
-- Diagnosed and fixed three separate production failures with evidence, not guesses: a browser secure-context restriction silently breaking session tracking, a missing auth token, and a latent null-handling bug in the UMAP code path that only a working classify feature could expose
-- Found and worked around a **CPU-bursting ceiling** (GCP documents e2-micro at 25% sustained CPU) by measuring it directly rather than assuming it was a memory problem
-- Cut a Docker image from 9.2GB to 1.62GB by fixing a pip dependency-resolution bug, and cached an expensive UMAP fit to disk so it doesn't get recomputed on every restart
-
-Free HTTPS, a real domain, zero ongoing cost. The full writeup - every bug, every measurement, every tradeoff - is in the repo's README.
+Free-tier GCP VM (964MB RAM) by choice — the constraint is what makes the engineering real. Free HTTPS, a real domain, zero ongoing cost. Full writeup in the repo's README.
 
 ---
 
