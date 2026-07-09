@@ -17,25 +17,25 @@ B.Tech CSE (Data Science) · Manipal University Jaipur · Batch '28
 
 ---
 
-I study how information behaves in code - in commits, in adoption curves, in systems that look chaotic until you measure them properly. Most of what's below started as a clean hypothesis. Some of it ended with the data winning instead of me. I think that's the more interesting outcome to publish.
+I study how information behaves in code: in commits, in adoption curves, in systems that look chaotic until you measure them properly. Most of what's below started as a clean hypothesis. Some of it ended with the data winning instead of me. I think that's the more interesting outcome to publish.
 
 ---
 
 ## research
 
 ### [Sekivara](https://github.com/tanistheta/sekivara)
-`difference-in-differences` `quasi-experimental` `git mining` `403k commits`
+`difference-in-differences` `quasi-experimental` `git mining` `638k commits`
 
-**Does GitHub Copilot change how people commit - causally, not just correlationally?**
+**Does GitHub Copilot change how people commit, causally rather than just correlationally?**
 
 ```mermaid
 flowchart LR
-    A[GH Archive<br/>9 repos, 2018-2024] --> B[Commit extraction<br/>403,646 commits]
+    A[GH Archive<br/>10 repos, 2018-2024] --> B[Commit extraction<br/>638,000+ commits]
     B --> C[Feature engineering<br/>files / churn / inserts]
     C --> D[Panel: repo x week<br/>fixed effects]
     D --> E[Pre-trend F-test]
     D --> F[DiD + event study]
-    D --> G[Dose-response &<br/>cohort decomposition]
+    D --> G[Commit-message DiD<br/>mechanism check]
     E --> H[Result]
     F --> H
     G --> H
@@ -46,14 +46,16 @@ flowchart LR
 | Mean files/commit | −28% | < 0.01 |
 | Mean insertions/commit | −37% | < 0.01 |
 | Large-commit fraction | −2.4pp | < 0.01 |
-| Pre-trend joint F-test | passes on all 4 headline features | — |
+| Fix-commit fraction | β = −0.030 | < 0.001 |
+| Refactor-commit fraction | β = +0.007 | 0.006 |
+| Pre-trend joint F-test | passes on all 4 headline features | n/a |
 
-Effect concentrates in existing contributors, not newcomers - people write smaller, more atomic commits once an assistant is doing the typing. HC3 robust SEs throughout; IEEEtran paper drafted, targeting MSR 2027.
+Effect concentrates in existing contributors, not newcomers: people write smaller, more atomic commits once an assistant is doing the typing. A commit-message DiD adds the mechanism check, with fix-commit share falling and refactor share rising post-adoption. HC3 robust SEs throughout; IEEEtran paper drafted, targeting MSR 2027.
 
 <details>
-<summary><b>Relation to prior work</b> — Xu et al. 2025 (arXiv:2510.10165, Tilburg)</summary>
+<summary><b>Relation to prior work</b> - Xu et al. 2025 (arXiv:2510.10165, Tilburg)</summary>
 
-Xu et al. find Copilot adoption increases **PR-level rework and review volume**. Sekivara looks one level down, at the commit itself, and finds atomicity *decreasing* post-adoption. Together: **more, smaller, more frequent commits** — Sekivara supplies the commit-level mechanism underneath their PR-level result.
+Xu et al. find Copilot adoption increases **PR-level rework and review volume**. Sekivara looks one level down, at the commit itself, and finds atomicity *decreasing* post-adoption. Together the two tell one story: **more, smaller, more frequent commits**. Sekivara supplies the commit-level mechanism underneath their PR-level result, and its clean pre-trend F-test and outlier-filtered control set are the methodological additions.
 
 </details>
 
@@ -70,21 +72,21 @@ flowchart LR
     B --> C[Sun-Abraham<br/>event-study DiD]
     C --> D{Result by<br/>horizon}
     D -->|0-18mo| E[Null on<br/>PR closing time]
-    D -->|23-24mo| F[Signal —<br/>flagged as confounded]
+    D -->|23-24mo| F[Signal, flagged<br/>as confounded]
     B --> G[CODEOWNERS coverage<br/>parsed at treatment date]
     G --> H[Bimodal split:<br/>14 repos ≤10% / 8 repos ≥90%]
 ```
 
 | Window | Finding | Confidence |
 |---|---|---|
-| 0–18 months | Null effect on PR closing time | Clean |
-| 23–24 months | Two coefficients turn significant | Confounded — only 17/28 repos reach this horizon, no later-adopting comparison cohort at same horizon |
-| Coverage split | 14 repos ≤10% coverage, 8 repos ≥90% | High-coverage subset shows parallel-trends violation → likely moderator |
+| 0-18 months | Null effect on PR closing time | Clean |
+| 23-24 months | Two coefficients turn significant | Confounded: only 17/28 repos reach this horizon, no later-adopting comparison cohort at same horizon |
+| Coverage split | 14 repos ≤10% coverage, 8 repos ≥90% | Low-coverage subset reproduces the null; high-coverage subset violates parallel trends, so coverage is a likely moderator |
 
 <details>
-<summary><b>Relation to prior work</b> — Lulla, Kula & Treude 2025</summary>
+<summary><b>Relation to prior work</b> - Lulla, Kula & Treude 2025</summary>
 
-A directly competing paper was found mid-analysis and incorporated rather than ignored. Their fixed RDD design structurally cannot observe the 18–24 month window Ikiru covers — the two studies are complementary in the horizons they can each speak to, not redundant.
+A directly competing paper was found mid-analysis and incorporated rather than ignored. Their fixed RDD design structurally cannot observe the 18-24 month window Ikiru covers. The two studies are complementary in the horizons they can each speak to, not redundant.
 
 </details>
 
@@ -101,7 +103,7 @@ flowchart LR
     B --> C[Naive train/test split]
     C --> D[72% accuracy]
     B --> E[Leave-one-repo-out CV]
-    E --> F[AUC 0.47 — chance]
+    E --> F[AUC 0.47, chance level]
     B --> G[Confound check]
     G --> H[Commit volume vs entropy<br/>Spearman r = 0.817]
 ```
@@ -119,7 +121,7 @@ flowchart LR
 ### [Bias-Aware ML Pipeline](https://github.com/tanistheta/bias_awareness)
 `fairness-aware ml` `demographic parity` `equal opportunity` `random forest`
 
-**Does fixing bias in tabular ML cost accuracy - and do all mitigation strategies work equally well?**
+**Does fixing bias in tabular ML cost accuracy, and do all mitigation strategies work equally well?**
 
 ```mermaid
 flowchart LR
@@ -140,21 +142,54 @@ flowchart LR
 | Feature suppression | Worst of 3 | Worst of 3 | Stable |
 | **Overall** | **64.5%** | **47.8%** | Held stable throughout |
 
-The sharper finding: naive feature suppression - the most intuitive fix - was the *least* effective of the three, underperforming reweighting on every fairness axis tested. Built with Dr. Chirag Joshi; pending arXiv endorsement.
+The sharper finding: naive feature suppression, the most intuitive fix, was the *least* effective of the three, underperforming reweighting on every fairness axis tested. Built with Dr. Chirag Joshi; pending arXiv endorsement.
 
 ---
 
 ## open source
 
-Contributions to libraries with real production surface area — not toy patches.
+Contributions to libraries with real production surface area, not toy patches.
 
-- **[pandas](https://github.com/pandas-dev/pandas)** — fixed a negative-slice indexer validation bug in core indexing logic using `slice.indices()` ([PR #66101](https://github.com/pandas-dev/pandas/pull/66101)), with regression tests.
-- **[PyDriller](https://github.com/ishepard/pydriller)** — corrected `Commit._stats()` to respect the `skip_whitespaces` flag ([PR #320](https://github.com/ishepard/pydriller/pull/320)); added a `Commit.patch` property exposing full unified diffs, closing a long-standing feature request ([PR #321](https://github.com/ishepard/pydriller/pull/321)).
-- **[PyGithub](https://github.com/PyGithub/PyGithub)** — added a configurable `max_rate_limit_wait` cap to `GithubRetry`, with a new `RateLimitExceededExceedsMaxWait` exception, replacing unbounded rate-limit stalls ([PR #3540](https://github.com/PyGithub/PyGithub/pull/3540)).
+- **[pandas](https://github.com/pandas-dev/pandas)** - fixed a negative-slice indexer validation bug in core indexing logic using `slice.indices()` ([PR #66101](https://github.com/pandas-dev/pandas/pull/66101)), with regression tests.
+- **[PyDriller](https://github.com/ishepard/pydriller)** - corrected `Commit._stats()` to respect the `skip_whitespaces` flag ([PR #320](https://github.com/ishepard/pydriller/pull/320)); added a `Commit.patch` property exposing full unified diffs, closing a long-standing feature request ([PR #321](https://github.com/ishepard/pydriller/pull/321)).
+- **[PyGithub](https://github.com/PyGithub/PyGithub)** - added a configurable `max_rate_limit_wait` cap to `GithubRetry`, with a new `RateLimitExceededExceedsMaxWait` exception, replacing unbounded rate-limit stalls ([PR #3540](https://github.com/PyGithub/PyGithub/pull/3540)).
 
 ---
 
 ## builds
+
+### [raft-kv](https://github.com/tanistheta/raft-kv)
+`go` `raft consensus` `deterministic simulation testing` `distributed systems`
+
+**Can you make a distributed-consensus bug reproduce on demand?**
+
+```mermaid
+flowchart LR
+    A[Raft nodes in Go<br/>leader election + log] --> B[Simulated scheduler<br/>deterministic delivery]
+    B --> C[Fault injection<br/>drop / delay / partition]
+    C --> D[Seeded runs<br/>replay any failure]
+    D --> E[6 passing tests incl.<br/>partition majority/minority]
+```
+
+| Phase | Scope | Status |
+|---|---|---|
+| 1 | Leader election, election safety checks, log accessors wired into RequestVote | Done |
+| 2 | Scheduler-driven delivery, fault injection (drops, delays, partitions), lossy-network tests | Done |
+| 3 | Full log replication: `AppendEntries` with consistency checks and commit advancement | In progress |
+
+Every test run is fully deterministic: same seed, same interleaving, same failure. No flaky distributed tests, no "works on my machine" for consensus bugs.
+
+---
+
+### Industry tooling · NTPC Limited
+`html` `sheetjs` `offline-first` `statistical filtering`
+
+Vocational trainee with the APR/SCADA team (June-July 2026). Two shipped tools:
+
+- A fully offline, browser-based CSV/Excel trend-report converter (single HTML file + SheetJS) with a compound tag-editing UI: suffix-diff, character-strip, and per-position removal. Runs on air-gapped plant machines with zero install.
+- An outlier-removal and feature-rejection pipeline for Pearson correlation analysis, combining IQR filtering with MAD-based modified z-scores and whole-graph auto-rejection (gap test + leverage test).
+
+---
 
 ### [Kansei 感性](https://github.com/tanistheta/kansei) · [kansei.duckdns.org](https://kansei.duckdns.org/)
 `clip` `umap` `fastapi` `docker` `gcp`
@@ -174,20 +209,22 @@ flowchart LR
 |---|---|---|
 | Docker image bloat | pip dependency-resolution bug | 9.2GB → 1.62GB |
 | Session tracking silently broken | Browser secure-context restriction | Diagnosed via evidence, not guesswork |
-| Slow classify response | Assumed memory issue | Actually e2-micro's documented 25% sustained CPU ceiling — measured directly |
+| Slow classify response | Assumed memory issue | Actually e2-micro's documented 25% sustained CPU ceiling, measured directly |
 | Repeated slow startup | UMAP re-fit on every restart | Cached fit to disk |
 
-Free-tier GCP VM (964MB RAM) by choice — the constraint is what makes the engineering real. Free HTTPS, a real domain, zero ongoing cost. Full writeup in the repo's README.
+Free-tier GCP VM (964MB RAM) by choice: the constraint is what makes the engineering real. Free HTTPS, a real domain, zero ongoing cost. Full writeup in the repo's README.
 
 ---
 
 ## stack
 
 ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
+![Go](https://img.shields.io/badge/Go-00ADD8?style=flat-square&logo=go&logoColor=white)
 ![C++](https://img.shields.io/badge/C++-00599C?style=flat-square&logo=cplusplus&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
 ![GCP](https://img.shields.io/badge/Google%20Cloud-4285F4?style=flat-square&logo=googlecloud&logoColor=white)
+![BigQuery](https://img.shields.io/badge/BigQuery-669DF6?style=flat-square&logo=googlebigquery&logoColor=white)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=flat-square&logo=scikit-learn&logoColor=white)
 ![statsmodels](https://img.shields.io/badge/statsmodels-8C564B?style=flat-square)
 ![Pandas](https://img.shields.io/badge/Pandas-150458?style=flat-square&logo=pandas&logoColor=white)
@@ -198,6 +235,7 @@ Free-tier GCP VM (964MB RAM) by choice — the constraint is what makes the engi
 
 ## achievements
 
+- 🎓 **Amazon ML Summer School 2026** - selected among the top ~3,000 of 134,000+ applicants (~2.2% selection rate)
 - 🏆 Top **1,500 of 100,000+** participants - Google *"The Big Code"* competitive programming challenge
 
 ---
