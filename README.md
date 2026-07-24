@@ -43,10 +43,10 @@ flowchart LR
 
 | Metric | Effect | p-value |
 |---|---|---|
-| Mean files/commit | −28% | < 0.01 |
-| Mean insertions/commit | −37% | < 0.01 |
-| Large-commit fraction | −2.4pp | < 0.01 |
-| Fix-commit fraction | β = −0.030 | < 0.001 |
+| Mean files/commit | -28% | < 0.01 |
+| Mean insertions/commit | -37% | < 0.01 |
+| Large-commit fraction | -2.4pp | < 0.01 |
+| Fix-commit fraction | β = -0.030 | < 0.001 |
 | Refactor-commit fraction | β = +0.007 | 0.006 |
 | Pre-trend joint F-test | passes on all 4 headline features | n/a |
 
@@ -150,6 +150,7 @@ The sharper finding: naive feature suppression, the most intuitive fix, was the 
 
 Contributions to libraries with real production surface area, not toy patches.
 
+- **[npm/cli](https://github.com/npm/cli)** - fixed a silent failure in `npm audit fix` by adding a `securityDowngrade` gate to `CanPlaceDep` ([PR #9754](https://github.com/npm/cli/pull/9754)), merged.
 - **[pandas](https://github.com/pandas-dev/pandas)** - fixed a negative-slice indexer validation bug in core indexing logic using `slice.indices()` ([PR #66101](https://github.com/pandas-dev/pandas/pull/66101)), with regression tests.
 - **[PyDriller](https://github.com/ishepard/pydriller)** - corrected `Commit._stats()` to respect the `skip_whitespaces` flag ([PR #320](https://github.com/ishepard/pydriller/pull/320)); added a `Commit.patch` property exposing full unified diffs, closing a long-standing feature request ([PR #321](https://github.com/ishepard/pydriller/pull/321)).
 - **[PyGithub](https://github.com/PyGithub/PyGithub)** - added a configurable `max_rate_limit_wait` cap to `GithubRetry`, with a new `RateLimitExceededExceedsMaxWait` exception, replacing unbounded rate-limit stalls ([PR #3540](https://github.com/PyGithub/PyGithub/pull/3540)).
@@ -237,6 +238,7 @@ Free-tier GCP VM (964MB RAM) by choice: the constraint is what makes the enginee
 
 - 🎓 **Amazon ML Summer School 2026** - selected among the top ~3,000 of 134,000+ applicants (~2.2% selection rate)
 - 🏆 Top **1,500 of 100,000+** participants - Google *"The Big Code"* competitive programming challenge
+- 🥇 **Dean's Academic Excellence Award** - Manipal University Jaipur, Semesters 2, 3, and 4
 
 ---
 
